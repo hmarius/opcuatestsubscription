@@ -49,7 +49,8 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.uint;
 import static org.testng.Assert.assertEquals;
 
-public class OpcUaClientIT {
+@Test
+public class TestSubscriptionWithMultipleRequests {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -152,6 +153,6 @@ public class OpcUaClientIT {
         item3.setValueConsumer(consumer);
 
 
-        assertEquals(allMonitoredItemsNodeIdsReceived.get(20, TimeUnit.SECONDS), (Integer)3, "should receive 3 different nodeIds");
+        assertEquals(allMonitoredItemsNodeIdsReceived.get(10, TimeUnit.SECONDS), (Integer)3, "should receive 3 different nodeIds");
     }
 }
