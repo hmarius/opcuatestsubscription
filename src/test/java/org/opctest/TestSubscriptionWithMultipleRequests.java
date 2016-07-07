@@ -122,21 +122,33 @@ public class TestSubscriptionWithMultipleRequests {
                 AttributeId.Value.uid(), null, QualifiedName.NULL_VALUE);
 
 
-        MonitoringParameters parameters = new MonitoringParameters(
+        MonitoringParameters parameters1 = new MonitoringParameters(
                 uint(1),    // client handle
+                1000.0,     // sampling interval
+                null,       // no (default) filter
+                uint(10),   // queue size
+                true);      // discard oldest
+        MonitoringParameters parameters2 = new MonitoringParameters(
+                uint(2),    // client handle
+                1000.0,     // sampling interval
+                null,       // no (default) filter
+                uint(10),   // queue size
+                true);      // discard oldest
+        MonitoringParameters parameters3 = new MonitoringParameters(
+                uint(3),    // client handle
                 1000.0,     // sampling interval
                 null,       // no (default) filter
                 uint(10),   // queue size
                 true);      // discard oldest
 
         MonitoredItemCreateRequest request1 = new MonitoredItemCreateRequest(
-                readValueId1, MonitoringMode.Reporting, parameters);
+                readValueId1, MonitoringMode.Reporting, parameters1);
 
         MonitoredItemCreateRequest request2 = new MonitoredItemCreateRequest(
-                readValueId2, MonitoringMode.Reporting, parameters);
+                readValueId2, MonitoringMode.Reporting, parameters2);
 
         MonitoredItemCreateRequest request3 = new MonitoredItemCreateRequest(
-                readValueId3, MonitoringMode.Reporting, parameters);
+                readValueId3, MonitoringMode.Reporting, parameters3);
 
         List<UaMonitoredItem> items = subscription
                 .createMonitoredItems(TimestampsToReturn.Both, newArrayList(request1, request2, request3)).get();
